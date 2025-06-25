@@ -143,7 +143,7 @@ class _HomePage extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
             color: Colors.black87,
-          ),
+            ),
           ),
         ],
     );
@@ -184,9 +184,9 @@ class _HomePage extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.asset(
                 'assets/images/nasi_ayam.jpg',
-                height: 120,
+              height: 120,
                 width: double.infinity,
-                fit: BoxFit.cover,
+                  fit: BoxFit.cover,
               ),
             ),
             Padding(

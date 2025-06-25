@@ -1,143 +1,157 @@
 import 'package:flutter/material.dart';
 
-class PaymentMethodPage extends StatefulWidget {
+class PaymentMethodPage extends StatelessWidget {
   const PaymentMethodPage({super.key});
-
-  @override
-  State<PaymentMethodPage> createState() => _PaymentMethodPageState();
-}
-
-class _PaymentMethodPageState extends State<PaymentMethodPage> {
-  int _selectedMethod = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Metode Pembayaran'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'Pilih Metode Pembayaran',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
-          const Text(
-            'Metode Pembayaran Tersimpan',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Virtual Account',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey,
+              ),
             ),
           ),
-          const SizedBox(height: 16),
-          Card(
-            child: RadioListTile(
-              value: 0,
-              groupValue: _selectedMethod,
-              onChanged: (value) => setState(() => _selectedMethod = value!),
-              title: const Text('Polije Pay'),
-              subtitle: const Text('Saldo: Rp 25.000'),
-              secondary: const Icon(Icons.account_balance_wallet),
+          _buildPaymentItem(
+            'assets/images/briva.png',
+            'BRI Virtual Account',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/mandiri.png',
+            'Mandiri Virtual Account',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/bni.png',
+            'BNI Virtual Account',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/bca.png',
+            'BCA Virtual Account',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/bsi.png',
+            'BSI Virtual Account',
+            onTap: () => Navigator.pop(context),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'E-Wallet',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey,
+              ),
             ),
           ),
-          Card(
-            child: RadioListTile(
-              value: 1,
-              groupValue: _selectedMethod,
-              onChanged: (value) => setState(() => _selectedMethod = value!),
-              title: const Text('DANA'),
-              subtitle: const Text('085123456789'),
-              secondary: const Icon(Icons.payment),
+          _buildPaymentItem(
+            'assets/images/poli.png',
+            'Polije Pay',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/dana.png',
+            'Dana',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/ovo.png',
+            'OVO',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/gopay.png',
+            'Gopay',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/shopeepay.png',
+            'Shopeepay',
+            onTap: () => Navigator.pop(context),
+          ),
+          _buildPaymentItem(
+            'assets/images/qris.png',
+            'QRIS',
+            onTap: () => Navigator.pop(context),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Metode Pembayaran Lainnya',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey,
+              ),
             ),
           ),
-          const SizedBox(height: 24),
-          OutlinedButton(
-            onPressed: () {
-              // Show add payment method form
-              _showAddPaymentMethodDialog(context);
-            },
-            style: OutlinedButton.styleFrom(
-              minimumSize: const Size.fromHeight(50),
-            ),
-            child: const Text('Tambah Metode Pembayaran'),
+          _buildPaymentItem(
+            'assets/images/cash.png',
+            'Tunai',
+            onTap: () => Navigator.pop(context),
           ),
         ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
-          onPressed: () {
-            // Save selected payment method and return
-            Navigator.pop(context);
-          },
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(50),
-          ),
-          child: const Text('Simpan'),
-        ),
       ),
     );
   }
 
-  Future<void> _showAddPaymentMethodDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Tambah Metode Pembayaran'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
+  Widget _buildPaymentItem(String imagePath, String title, {required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
           children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Nomor Kartu',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.number,
+            Image.asset(
+              imagePath,
+              width: 32,
+              height: 32,
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Tanggal Kadaluarsa',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.datetime,
-                  ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'CVV',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    obscureText: true,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Nama Pemilik Kartu',
-                border: OutlineInputBorder(),
               ),
+            ),
+            const Icon(
+              Icons.chevron_right,
+              color: Colors.grey,
+              size: 24,
             ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Save new payment method
-              Navigator.pop(context);
-            },
-            child: const Text('Tambah'),
-          ),
-        ],
       ),
     );
   }

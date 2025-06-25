@@ -33,14 +33,13 @@ class DeliveryAddressPage extends StatelessWidget {
             child: Stack(
               children: [
                 // Here you would integrate actual map
-                // For now using placeholder
                 Image.asset(
                   'assets/images/map.png',
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                // Back button overlay
+                // Location button overlay
                 Positioned(
                   top: 16,
                   left: 16,
@@ -74,67 +73,54 @@ class DeliveryAddressPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Alamat Pengiriman',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey[300]!),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: ListTile(
-                      leading: const Icon(Icons.location_on_outlined, color: Colors.blue),
+                      leading: Icon(Icons.location_on_outlined, color: Colors.grey[600]),
                       title: const Text(
                         'Gedung Jurusan Teknologi Informasi',
                         style: TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          color: Colors.black87,
                         ),
                       ),
-                      subtitle: Text(
-                        'Detail Lokasi',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      trailing: const Icon(Icons.keyboard_arrow_down),
-                      onTap: () {
-                        // Handle location selection
-                      },
+                      trailing: const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[300]!),
-                      borderRadius: BorderRadius.circular(8),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Detail Lokasi',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Detail Lokasi',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Lantai 1 Ruang Baca JTI',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Lantai 1 Ruang Baca JTI',
+                      hintStyle: TextStyle(color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey[300]!),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey[300]!),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: Colors.blue),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black87,
                     ),
                   ),
                   const Spacer(),
@@ -145,17 +131,19 @@ class DeliveryAddressPage extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: const Color(0xFF2196F3),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        elevation: 0,
                       ),
                       child: const Text(
                         'Konfirmasi',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
+                          color: Colors.white,
                         ),
                       ),
                     ),

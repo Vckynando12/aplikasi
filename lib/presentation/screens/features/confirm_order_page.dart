@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'delivery_address_page.dart';
+import 'payment_method_page.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   const ConfirmOrderPage({super.key});
@@ -16,6 +17,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   };
 
   bool isDiantar = true;
+  bool isUtensilsNeeded = false;
 
   void updateQuantity(String location, bool increment) {
     setState(() {
@@ -284,7 +286,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
-                      children: [
+                    children: [
                         Icon(Icons.location_on_outlined, size: 20, color: Colors.grey[600]),
                         const SizedBox(width: 8),
                         Text(
@@ -359,11 +361,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                           ),
                         ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: Colors.blue[50],
-                          borderRadius: BorderRadius.circular(16),
+                      TextButton(
+                        onPressed: () => context.go('/user-dashboard'),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.blue[50],
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                         ),
                         child: const Text(
                           'Tambah',
@@ -416,9 +421,22 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     height: 24,
                     width: 24,
                     child: Checkbox(
-                      value: false,
-                      onChanged: (value) {},
+                      value: isUtensilsNeeded,
+                      onChanged: (value) {
+                        setState(() {
+                          isUtensilsNeeded = value ?? false;
+                        });
+                      },
                       shape: const CircleBorder(),
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.selected)) {
+                            return Colors.blue;
+                          }
+                          return Colors.transparent;
+                        },
+                      ),
                       side: BorderSide(color: Colors.grey[400]!),
                     ),
                   ),
@@ -456,7 +474,17 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   ),
                 ),
                 const Spacer(),
-                Icon(Icons.more_horiz, color: Colors.grey[400], size: 20),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentMethodPage(),
+                      ),
+                    );
+                  },
+                  child: Icon(Icons.more_horiz, color: Colors.grey[400], size: 20),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -481,16 +509,16 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Pesanan berhasil dibuat!'),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-                context.go('/user-dashboard');
-              },
-              style: ElevatedButton.styleFrom(
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Pesanan berhasil dibuat!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            context.go('/user-dashboard');
+          },
+          style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 minimumSize: const Size.fromHeight(48),
                 shape: RoundedRectangleBorder(
