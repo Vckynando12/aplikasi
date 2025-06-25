@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'delivery_address_page.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   const ConfirmOrderPage({super.key});
@@ -14,6 +15,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     'Kantin 2': 1,
   };
 
+  bool isDiantar = true;
+
   void updateQuantity(String location, bool increment) {
     setState(() {
       if (increment) {
@@ -24,6 +27,94 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         }
       }
     });
+  }
+
+  void _showOrderTypeDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Pilih Jenis Pemesanan',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      isDiantar = true;
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: isDiantar ? Colors.blue : Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: isDiantar ? Colors.blue : Colors.grey[300]!,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Diantar',
+                        style: TextStyle(
+                          color: isDiantar ? Colors.white : Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      isDiantar = false;
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: !isDiantar ? Colors.blue : Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: !isDiantar ? Colors.blue : Colors.grey[300]!,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Ambil Sendiri',
+                        style: TextStyle(
+                          color: !isDiantar ? Colors.white : Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -69,7 +160,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/images/motor.jpg',
+                    isDiantar ? 'assets/images/motor.jpg' : 'assets/images/ambil.jpeg',
                     width: 40,
                     height: 40,
                   ),
@@ -79,16 +170,16 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Mau diambil sendiri? Klik "Ganti"',
+                          isDiantar ? 'Mau diambil sendiri? Klik "Ganti"' : 'Mau diantar? Klik "Ganti"',
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.grey[600],
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Pesan Diantar',
-                          style: TextStyle(
+                        Text(
+                          isDiantar ? 'Pesan Diantar' : 'Ambil Sendiri',
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -97,7 +188,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: _showOrderTypeDialog,
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       shape: RoundedRectangleBorder(
@@ -151,7 +242,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DeliveryAddressPage(),
+                            ),
+                          );
+                        },
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                           shape: RoundedRectangleBorder(

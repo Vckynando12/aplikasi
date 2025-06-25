@@ -64,12 +64,15 @@ flutter:
 
   # Uncomment these lines when you add assets
   assets:
-    - assets/images/logo.jpg
+    - assets/images/
     - assets/images/motor.jpg
-    - assets/images/orang.jpg
-    - assets/images/banner.jpg
     - assets/images/nasi_ayam.jpg
+    - assets/images/banner.jpg
+    - assets/images/logo.jpg
+    - assets/images/orang.jpg
     - assets/images/profile.jpg
+    - assets/images/ambil.jpeg
+    - assets/images/map.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
