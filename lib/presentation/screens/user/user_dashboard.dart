@@ -7,6 +7,7 @@ import '../features/activity_page.dart';
 import '../features/chat_page.dart';
 import '../features/profile_page.dart';
 import '../features/food_detail_page.dart';
+import '../features/kantin_page.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -124,25 +125,28 @@ class _HomePage extends StatelessWidget {
 
   _HomePage({Key? key}) : super(key: key);
 
-  Widget _buildCategoryItem(IconData icon, String label) {
+  Widget _buildCategoryItem(IconData icon, String label, {VoidCallback? onTap}) {
     return Column(
         children: [
-          Container(
-          width: 60,
-          height: 60,
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(30),
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: 60,
+              height: 60,
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Icon(icon, color: Colors.white),
+            ),
           ),
-          child: Icon(icon, color: Colors.white),
-        ),
-        const SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             label,
             style: const TextStyle(
               fontSize: 12,
-            color: Colors.black87,
+              color: Colors.black87,
             ),
           ),
         ],
@@ -438,15 +442,24 @@ class _HomePage extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                  children: [
-                  _buildCategoryItem(Icons.store_outlined, 'Kantin'),
+                children: [
+                  _buildCategoryItem(
+                    Icons.store_outlined,
+                    'Kantin',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const KantinPage()),
+                      );
+                    },
+                  ),
                   _buildCategoryItem(Icons.restaurant_outlined, 'Makanan'),
                   _buildCategoryItem(Icons.local_drink_outlined, 'Minuman'),
                   _buildCategoryItem(Icons.lunch_dining_outlined, 'Snack'),
-                    _buildCategoryItem(Icons.grid_view, 'Semua'),
-                  ],
-                ),
+                  _buildCategoryItem(Icons.grid_view, 'Semua'),
+                ],
               ),
+            ),
             const SizedBox(height: 20),
 
               // Banner
