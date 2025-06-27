@@ -9,6 +9,8 @@ import '../features/profile_page.dart';
 import '../features/food_detail_page.dart';
 import '../features/kantin_page.dart';
 import '../features/makanan_page.dart';
+import '../features/minuman_page.dart';
+import '../features/snack_page.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -464,8 +466,26 @@ class _HomePage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildCategoryItem(Icons.local_drink_outlined, 'Minuman'),
-                  _buildCategoryItem(Icons.lunch_dining_outlined, 'Snack'),
+                  _buildCategoryItem(
+                    Icons.local_drink_outlined,
+                    'Minuman',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MinumanPage()),
+                      );
+                    },
+                  ),
+                  _buildCategoryItem(
+                    Icons.lunch_dining_outlined,
+                    'Snack',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SnackPage()),
+                      );
+                    },
+                  ),
                   _buildCategoryItem(Icons.grid_view, 'Semua'),
                 ],
               ),
