@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class DeliveryOrderPage extends StatefulWidget {
-  const DeliveryOrderPage({super.key});
-
-  @override
-  State<DeliveryOrderPage> createState() => _DeliveryOrderPageState();
-}
-
-class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
-      if (mounted) {
-        context.go('/order-arrived');
-      }
-    });
-  }
+class OrderArrivedPage extends StatelessWidget {
+  const OrderArrivedPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +34,13 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                     const SizedBox(height: 36),
                     Center(
                       child: Image.asset(
-                        'assets/images/kurir2.png',
-                        height: 170,
+                        'assets/images/kurir3.png',
+                        height: 140,
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24),
                     const Text(
-                      'Pesanan lagi diantarkan',
+                      'Pesanan tiba di Lokasi Anda',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -66,7 +50,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                     ),
                     const SizedBox(height: 4),
                     const Text(
-                      'Mohon untuk tetap di lokasi Anda',
+                      'Scan barcode ini ke kurir untuk menerima pesanan',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
@@ -77,7 +61,19 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
+            // QR code
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Center(
+                child: Image.asset(
+                  'assets/images/barcode.png',
+                  width: 160,
+                  height: 160,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             // Card kurir
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -112,18 +108,16 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                           ),
                           Row(
                             children: [
-                              _circleIcon(Icons.chat, color: Color(0xFF21A5E7)),
+                              _circleFilledIcon(Icons.phone),
                               const SizedBox(width: 8),
-                              _circleIcon(Icons.phone, color: Color(0xFF21A5E7)),
-                              const SizedBox(width: 8),
-                              _circleIcon(Icons.location_on, color: Color(0xFF21A5E7)),
+                              _circleFilledIcon(Icons.chat),
                             ],
                           ),
                         ],
                       ),
                       const SizedBox(height: 2),
                       const Text(
-                        'Chat kurir untuk memastikan lokasi mu',
+                        'Chat kurir untuk memastikan lokasimu',
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
@@ -157,6 +151,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                       imageUrl: 'assets/images/nasi_ayam.jpg',
                       status: 'Selesai',
                       statusColor: Colors.grey,
+                      chatEnabled: false,
                     ),
                     Divider(height: 1, color: Color(0xFFEEEEEE)),
                     _buildOrderCard(
@@ -166,81 +161,9 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                       imageUrl: 'assets/images/nasi_ayam.jpg',
                       status: 'Selesai',
                       statusColor: Colors.grey,
+                      chatEnabled: false,
                     ),
                   ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Card info pembayaran
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade200),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.08),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Nomor Pesanan', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                              SizedBox(height: 2),
-                              Text('Waktu Pemesanan', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text('#TRDKN16254625431', style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                              SizedBox(height: 2),
-                              Text('2025-01-13 13:01:27', style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      _buildPaymentRow('Harga', 'Rp 20.000', valueColor: Color(0xFF21A5E7)),
-                      _buildPaymentRow('Biaya Pengiriman', 'Rp 2000', valueColor: Color(0xFF21A5E7)),
-                      _buildPaymentRow('Diskon', 'Rp 0', valueColor: Color(0xFF21A5E7)),
-                      const Divider(height: 24, color: Color(0xFFEEEEEE)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'Total Pembayaran',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            'Rp 22.000',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),
@@ -251,16 +174,15 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     );
   }
 
-  static Widget _circleIcon(IconData icon, {Color? color}) {
+  static Widget _circleFilledIcon(IconData icon) {
     return Container(
       width: 36,
       height: 36,
-      decoration: BoxDecoration(
-        color: Colors.white,
+      decoration: const BoxDecoration(
+        color: Color(0xFF21A5E7),
         shape: BoxShape.circle,
-        border: Border.all(color: color ?? Colors.blue, width: 1.5),
       ),
-      child: Icon(icon, color: color ?? Colors.blue, size: 20),
+      child: Icon(icon, color: Colors.white, size: 20),
     );
   }
 
@@ -271,6 +193,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     required String imageUrl,
     required String status,
     required Color statusColor,
+    required bool chatEnabled,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -332,12 +255,12 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                     const Text('x1', style: TextStyle(fontSize: 15, color: Colors.black87)),
                     const Spacer(),
                     OutlinedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.chat, size: 18, color: Color(0xFF21A5E7)),
-                      label: const Text('Chat', style: TextStyle(color: Color(0xFF21A5E7), fontWeight: FontWeight.w500)),
+                      onPressed: chatEnabled ? () {} : null,
+                      icon: Icon(Icons.chat, size: 18, color: chatEnabled ? const Color(0xFF21A5E7) : Colors.grey),
+                      label: Text('Chat', style: TextStyle(color: chatEnabled ? const Color(0xFF21A5E7) : Colors.grey, fontWeight: FontWeight.w500)),
                       style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Color(0xFF21A5E7)),
-                        foregroundColor: const Color(0xFF21A5E7),
+                        side: BorderSide(color: chatEnabled ? const Color(0xFF21A5E7) : Colors.grey),
+                        foregroundColor: chatEnabled ? const Color(0xFF21A5E7) : Colors.grey,
                         textStyle: const TextStyle(fontSize: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
@@ -349,31 +272,6 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                   ],
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPaymentRow(String label, String value, {Color? valueColor}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 13,
-            ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 13,
-              color: valueColor ?? Colors.black,
             ),
           ),
         ],
