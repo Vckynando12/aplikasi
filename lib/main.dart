@@ -14,6 +14,7 @@ import 'presentation/screens/features/detail_page.dart';
 import 'presentation/screens/features/sort_page.dart';
 import 'presentation/screens/features/confirm_order_page.dart';
 import 'presentation/screens/features/payment_method_page.dart';
+import 'presentation/screens/features/processing_order_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,6 +66,10 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/confirm-order',
         builder: (context, state) => const ConfirmOrderPage(),
+      ),
+      GoRoute(
+        path: '/processing-order',
+        builder: (context, state) => const ProcessingOrderPage(),
       ),
     ],
   );

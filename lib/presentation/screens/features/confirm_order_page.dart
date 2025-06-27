@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'delivery_address_page.dart';
 import 'payment_method_page.dart';
+import 'processing_order_page.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   const ConfirmOrderPage({super.key});
@@ -510,13 +511,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             const SizedBox(height: 16),
             ElevatedButton(
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Pesanan berhasil dibuat!'),
-                backgroundColor: Colors.green,
-              ),
-            );
-            context.go('/user-dashboard');
+            context.go('/processing-order');
           },
           style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
