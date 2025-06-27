@@ -16,22 +16,22 @@ class MakananPage extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   height: 140,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFB3E5FC),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFB3E5FC),
                     image: DecorationImage(
                       image: AssetImage('assets/images/makanan.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 20,
                   top: 24,
                   child: SizedBox(
                     width: 200,
                     child: Text(
                       '',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,

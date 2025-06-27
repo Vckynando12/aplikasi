@@ -16,22 +16,22 @@ class KantinPage extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   height: 160,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFB3E5FC),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFB3E5FC),
                     image: DecorationImage(
                       image: AssetImage('assets/images/kantin.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 20,
                   top: 32,
                   child: SizedBox(
                     width: 200,
                     child: Text(
                       '',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -145,14 +145,14 @@ class KantinPage extends StatelessWidget {
                             style: const TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                           Text(
-                            index == 0 ? 'Kantin DWP' : 'Kantin ${index}',
+                            index == 0 ? 'Kantin DWP' : 'Kantin $index',
                             style: const TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                         ],
                       ),
-                      trailing: Row(
+                      trailing: const Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           Icon(Icons.star, color: Colors.amber, size: 18),
                           SizedBox(width: 2),
                           Text('4.9', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),

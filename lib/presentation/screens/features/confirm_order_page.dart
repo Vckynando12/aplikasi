@@ -120,6 +120,23 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     );
   }
 
+  Route _createScaleRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+        );
+        return ScaleTransition(
+          scale: scale,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 350),
+      reverseTransitionDuration: const Duration(milliseconds: 250),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -248,9 +265,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const DeliveryAddressPage(),
-                            ),
+                            _createScaleRoute(const DeliveryAddressPage()),
                           );
                         },
                         style: TextButton.styleFrom(
@@ -430,9 +445,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                       },
                       shape: const CircleBorder(),
                       checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                      fillColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             return Colors.blue;
                           }
                           return Colors.transparent;
@@ -479,12 +494,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const PaymentMethodPage(),
-                      ),
+                      _createScaleRoute(const PaymentMethodPage()),
                     );
                   },
-                  child: Icon(Icons.more_horiz, color: Colors.grey[400], size: 20),
+                  child: const Icon(Icons.more_horiz, color: Colors.grey, size: 20),
                 ),
               ],
             ),
@@ -510,10 +523,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-          onPressed: () {
-            context.go('/processing-order');
-          },
-          style: ElevatedButton.styleFrom(
+              onPressed: () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).push(_createScaleRoute(const ProcessingOrderPage()));
+                });
+              },
+              style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 minimumSize: const Size.fromHeight(48),
                 shape: RoundedRectangleBorder(

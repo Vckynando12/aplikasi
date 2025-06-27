@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kantin_app/presentation/screens/features/delivery_order_page.dart';
 
 class ProcessingOrderPage extends StatefulWidget {
   const ProcessingOrderPage({super.key});
@@ -14,7 +15,9 @@ class _ProcessingOrderPageState extends State<ProcessingOrderPage> {
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
-        context.go('/delivery-order');
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacement(_createScaleRoute(const DeliveryOrderPage()));
+        });
       }
     });
   }
@@ -27,7 +30,7 @@ class _ProcessingOrderPageState extends State<ProcessingOrderPage> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.go('/user-dashboard'),
         ),
       ),
       extendBodyBehindAppBar: true,
@@ -102,9 +105,9 @@ class _ProcessingOrderPageState extends State<ProcessingOrderPage> {
                       price: 'Rp 10.000',
                       imageUrl: 'assets/images/nasi_ayam.jpg',
                       status: 'Sedang dimasak',
-                      statusColor: Color(0xFF21A5E7),
+                      statusColor: const Color(0xFF21A5E7),
                     ),
-                    Divider(height: 1, color: Color(0xFFEEEEEE)),
+                    const Divider(height: 1, color: Color(0xFFEEEEEE)),
                     _buildOrderCard(
                       kantin: 'Kantin 2',
                       menu: 'Nasi Ayam Geprek',
@@ -147,7 +150,7 @@ class _ProcessingOrderPageState extends State<ProcessingOrderPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Nomor Pesanan', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                              SizedBox(height: 2),
+                              const SizedBox(height: 2),
                               Text('Waktu Pemesanan', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
                             ],
                           ),
@@ -155,20 +158,20 @@ class _ProcessingOrderPageState extends State<ProcessingOrderPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text('#TRDKN16254625431', style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                              SizedBox(height: 2),
+                              const SizedBox(height: 2),
                               Text('2025-01-13 13:01:27', style: TextStyle(fontSize: 12, color: Colors.grey[700])),
                             ],
                           ),
                         ],
                       ),
                       const SizedBox(height: 12),
-                      _buildPaymentRow('Harga', 'Rp 20.000', valueColor: Color(0xFF21A5E7)),
-                      _buildPaymentRow('Biaya Pengiriman', 'Rp 2000', valueColor: Color(0xFF21A5E7)),
-                      _buildPaymentRow('Diskon', 'Rp 0', valueColor: Color(0xFF21A5E7)),
+                      _buildPaymentRow('Harga', 'Rp 20.000', valueColor: const Color(0xFF21A5E7)),
+                      _buildPaymentRow('Biaya Pengiriman', 'Rp 2000', valueColor: const Color(0xFF21A5E7)),
+                      _buildPaymentRow('Diskon', 'Rp 0', valueColor: const Color(0xFF21A5E7)),
                       const Divider(height: 24, color: Color(0xFFEEEEEE)),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             'Total Pembayaran',
                             style: TextStyle(
@@ -355,6 +358,23 @@ class _ProcessingOrderPageState extends State<ProcessingOrderPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Route _createScaleRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+        );
+        return ScaleTransition(
+          scale: scale,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 350),
+      reverseTransitionDuration: const Duration(milliseconds: 250),
     );
   }
 }

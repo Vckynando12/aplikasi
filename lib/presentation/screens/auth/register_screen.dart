@@ -265,21 +265,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       Expanded(
                         child: RichText(
-                          text: TextSpan(
-                            style: const TextStyle(color: Colors.grey, fontSize: 11),
+                          text: const TextSpan(
+                            style: TextStyle(color: Colors.grey, fontSize: 11),
                             children: [
-                              const TextSpan(text: 'Dengan mendaftar, Anda menyetujui '),
+                              TextSpan(text: 'Dengan mendaftar, Anda menyetujui '),
                               TextSpan(
                                 text: 'syarat & ketentuan',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.blue,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                              const TextSpan(text: ' dan '),
+                              TextSpan(text: ' dan '),
                               TextSpan(
                                 text: 'kebijakan privasi kami',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.blue,
                                   decoration: TextDecoration.underline,
                                 ),

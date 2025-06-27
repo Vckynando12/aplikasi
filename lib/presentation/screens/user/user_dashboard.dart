@@ -126,7 +126,7 @@ class _UserDashboardState extends State<UserDashboard> {
 class _HomePage extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
-  _HomePage({Key? key}) : super(key: key);
+  _HomePage({super.key});
 
   Widget _buildCategoryItem(IconData icon, String label, {VoidCallback? onTap}) {
     return Column(
@@ -452,7 +452,20 @@ class _HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const KantinPage()),
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => const KantinPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+                              CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+                            );
+                            return ScaleTransition(
+                              scale: scale,
+                              child: child,
+                            );
+                          },
+                          transitionDuration: const Duration(milliseconds: 350),
+                          reverseTransitionDuration: const Duration(milliseconds: 250),
+                        ),
                       );
                     },
                   ),
@@ -462,7 +475,20 @@ class _HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MakananPage()),
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => const MakananPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+                              CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+                            );
+                            return ScaleTransition(
+                              scale: scale,
+                              child: child,
+                            );
+                          },
+                          transitionDuration: const Duration(milliseconds: 350),
+                          reverseTransitionDuration: const Duration(milliseconds: 250),
+                        ),
                       );
                     },
                   ),
@@ -472,7 +498,20 @@ class _HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MinumanPage()),
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => const MinumanPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+                              CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+                            );
+                            return ScaleTransition(
+                              scale: scale,
+                              child: child,
+                            );
+                          },
+                          transitionDuration: const Duration(milliseconds: 350),
+                          reverseTransitionDuration: const Duration(milliseconds: 250),
+                        ),
                       );
                     },
                   ),
@@ -482,7 +521,20 @@ class _HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SnackPage()),
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => const SnackPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+                              CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+                            );
+                            return ScaleTransition(
+                              scale: scale,
+                              child: child,
+                            );
+                          },
+                          transitionDuration: const Duration(milliseconds: 350),
+                          reverseTransitionDuration: const Duration(milliseconds: 250),
+                        ),
                       );
                     },
                   ),

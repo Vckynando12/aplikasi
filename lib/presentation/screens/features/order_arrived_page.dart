@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kantin_app/presentation/screens/user/user_dashboard.dart';
 
 class OrderArrivedPage extends StatelessWidget {
   const OrderArrivedPage({super.key});
@@ -11,7 +13,11 @@ class OrderArrivedPage extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.go('/user-dashboard');
+            });
+          },
         ),
       ),
       extendBodyBehindAppBar: true,
@@ -153,7 +159,7 @@ class OrderArrivedPage extends StatelessWidget {
                       statusColor: Colors.grey,
                       chatEnabled: false,
                     ),
-                    Divider(height: 1, color: Color(0xFFEEEEEE)),
+                    const Divider(height: 1, color: Color(0xFFEEEEEE)),
                     _buildOrderCard(
                       kantin: 'Kantin 2',
                       menu: 'Nasi Ayam Geprek',
@@ -276,6 +282,23 @@ class OrderArrivedPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Route _createScaleRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+        );
+        return ScaleTransition(
+          scale: scale,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 350),
+      reverseTransitionDuration: const Duration(milliseconds: 250),
     );
   }
 }
