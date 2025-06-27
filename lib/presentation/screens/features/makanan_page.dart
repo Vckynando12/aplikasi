@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class KantinPage extends StatelessWidget {
-  const KantinPage({super.key});
+class MakananPage extends StatelessWidget {
+  const MakananPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +15,24 @@ class KantinPage extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 160,
+                  height: 140,
                   decoration: BoxDecoration(
                     color: const Color(0xFFB3E5FC),
                     image: DecorationImage(
-                      image: AssetImage('assets/images/kantin.png'),
+                      image: AssetImage('assets/images/makanan.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 Positioned(
                   left: 20,
-                  top: 32,
+                  top: 24,
                   child: SizedBox(
                     width: 200,
                     child: Text(
                       '',
                       style: const TextStyle(
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         height: 1.2,
@@ -42,8 +42,8 @@ class KantinPage extends StatelessWidget {
                 ),
                 // Tombol X di pojok kiri atas
                 Positioned(
-                  top: 12,
-                  left: 12,
+                  top: 10,
+                  left: 10,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -68,7 +68,7 @@ class KantinPage extends StatelessWidget {
             ),
             // Search Bar
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
                   Expanded(
@@ -98,73 +98,90 @@ class KantinPage extends StatelessWidget {
                 ],
               ),
             ),
-            // List Kantin
+            // List Makanan
             Expanded(
-              child: ListView.builder(
+              child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.08),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(12),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          index == 0
-                              ? 'assets/images/banner.jpg'
-                              : 'assets/images/nasi_ayam.jpg',
-                          width: 48,
-                          height: 48,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      title: Text(
-                        index == 0 ? 'Aneka Jus' : 'Warung Bu Djoko',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            index == 0 ? 'Minuman' : 'Aneka Nasi, Ayam, Lauk-pauk',
-                            style: const TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                          Text(
-                            index == 0 ? 'Kantin DWP' : 'Kantin ${index}',
-                            style: const TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Icon(Icons.star, color: Colors.amber, size: 18),
-                          SizedBox(width: 2),
-                          Text('4.9', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                          SizedBox(width: 2),
-                          Text('(500+)', style: TextStyle(fontSize: 11, color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                children: [
+                  _buildFoodCard(
+                    image: 'assets/images/nasi_ayam.jpg',
+                    name: 'Nasi Goreng',
+                    kantin: 'Kantin 4',
+                    price: 'Rp 10.000',
+                    rating: '4.9',
+                    reviews: '71',
+                  ),
+                  _buildFoodCard(
+                    image: 'assets/images/nasi_ayam.jpg',
+                    name: 'Mie Kuah',
+                    kantin: 'Kantin 3',
+                    price: 'Rp 5.000',
+                    rating: '4.8',
+                    reviews: '10',
+                  ),
+                ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFoodCard({
+    required String image,
+    required String name,
+    required String kantin,
+    required String price,
+    required String rating,
+    required String reviews,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.asset(
+            image,
+            width: 48,
+            height: 48,
+            fit: BoxFit.cover,
+          ),
+        ),
+        title: Text(
+          name,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(kantin, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+            Text(price, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.star, color: Colors.amber, size: 18),
+            const SizedBox(width: 2),
+            Text(rating, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+            const SizedBox(width: 2),
+            Text('($reviews)', style: const TextStyle(fontSize: 11, color: Colors.grey)),
           ],
         ),
       ),
